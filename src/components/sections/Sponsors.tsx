@@ -64,7 +64,7 @@ export default function Sponsors() {
                 ${i === sponsors.length - 1 ? 'lg:border-r-0' : ''}
                 flex items-center justify-center
                 p-6 sm:p-8 md:p-12
-                h-24 sm:h-28 md:h-[132px]
+                h-24 sm:h-28 md:h-33
                 cursor-pointer
                 hover:bg-white transition-colors duration-100
               `}

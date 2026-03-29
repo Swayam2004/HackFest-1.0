@@ -44,13 +44,13 @@ function FAQItem({ faq, index }: { faq: typeof faqs[0]; index: number }) {
       variants={brutalistEntrance}
       className={`
         relative transition-all duration-75
-        ${open ? 'bg-white/[0.08] border-4 border-hack-red' : 'bg-white/[0.05] border-4 border-white'}
+        ${open ? 'bg-white/8 border-4 border-hack-red' : 'bg-white/5 border-4 border-white'}
       `}
     >
       {/* HUD bracket — top left */}
-      <div className="absolute -top-2 -left-2 w-5 h-5 border-t-4 border-l-4 border-hack-black z-[1]" />
+      <div className="absolute -top-2 -left-2 w-5 h-5 border-t-4 border-l-4 border-hack-black z-1" />
       {/* HUD bracket — bottom right */}
-      <div className="absolute -bottom-2 -right-2 w-5 h-5 border-b-4 border-r-4 border-hack-black z-[1]" />
+      <div className="absolute -bottom-2 -right-2 w-5 h-5 border-b-4 border-r-4 border-hack-black z-1" />
 
       {/* Question row */}
       <button
