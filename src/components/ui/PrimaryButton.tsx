@@ -8,6 +8,7 @@ interface PrimaryButtonProps {
   href?: string;
   size?: 'sm' | 'md' | 'lg';
   variant?: 'primary' | 'dark';
+  haptic?: boolean;
   className?: string;
 }
 
@@ -23,9 +24,25 @@ export default function PrimaryButton({
   href,
   size = 'md',
   variant = 'primary',
+  haptic = false,
   className = '',
 }: PrimaryButtonProps) {
   const isPrimary = variant === 'primary';
+  const lastHapticAtRef = React.useRef(0);
+
+  const triggerHaptic = () => {
+    if (!haptic || typeof navigator === 'undefined' || typeof navigator.vibrate !== 'function') {
+      return;
+    }
+
+    const now = Date.now();
+    if (now - lastHapticAtRef.current < 80) {
+      return;
+    }
+    lastHapticAtRef.current = now;
+
+    navigator.vibrate([24, 12, 24]);
+  };
 
   const baseClasses = `
     inline-flex items-center justify-center
@@ -43,6 +60,8 @@ export default function PrimaryButton({
       whileHover="hover"
       whileTap="tap"
       variants={buttonGlitch}
+      onTapStart={triggerHaptic}
+      onPointerDown={triggerHaptic}
     >
       {children}
     </motion.div>

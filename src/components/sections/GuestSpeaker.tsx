@@ -9,7 +9,7 @@ const speakers = [
     role: 'SECURITY ARCHITECT',
     rank: 'LEGENDARY',
     cpu: '99%',
-    image: '/images/speaker-1.png',
+    image: 'images/speaker-1.png',
   },
   {
     id: 'ID_002_CORE_SYNC',
@@ -17,7 +17,7 @@ const speakers = [
     role: 'DATA WHISPERER',
     rank: 'ELITE',
     cpu: '84%',
-    image: '/images/speaker-2.png',
+    image: 'images/speaker-2.png',
   },
 ];
 
@@ -156,14 +156,17 @@ function SpeakerCard({ speaker, index }: { speaker: typeof speakers[0]; index: n
       className="bg-hack-black border-4 border-hack-black flex flex-col relative group"
     >
       {/* Image area */}
+
       <div className="relative w-full aspect-square overflow-hidden border-[8px] md:border-[16px] border-hack-black -mb-4 md:-mb-8">
         <GlitchImage src={speaker.image} alt={speaker.name} />
         {/* Desaturate overlay (lifts on hover) */}
+
         <div className="absolute inset-0 bg-white mix-blend-saturation group-hover:opacity-0 transition-opacity duration-500" />
       </div>
 
       {/* Info panel */}
       <div className="bg-white border-4 border-hack-black shadow-[8px_8px_0px_#000] md:shadow-[12px_12px_0px_#000] p-4 md:p-6 relative z-[1]">
+
         <div className="font-mono font-bold text-[10px] md:text-xs text-hack-red mb-1 md:mb-2 uppercase">
           {speaker.id}
         </div>
@@ -173,7 +176,9 @@ function SpeakerCard({ speaker, index }: { speaker: typeof speakers[0]; index: n
         <div className="font-body font-black text-xs md:text-sm text-hack-red uppercase mb-3 md:mb-4">
           {speaker.role}
         </div>
+
         <div className="border-t-2 border-hack-black pt-3 md:pt-[18px] flex justify-between items-center">
+
           <div className="bg-hack-black px-2 py-0.5">
             <span className="font-mono text-[8px] md:text-[10px] text-white uppercase">
               RANK: {speaker.rank}
@@ -224,9 +229,11 @@ export default function GuestSpeaker() {
             initial="hidden"
             animate={inView ? 'visible' : 'hidden'}
             className="border-4 md:border-[6px] border-dashed border-black/20 flex flex-col items-center justify-center
-              p-10 md:p-14 min-h-[300px] md:min-h-[400px]"
+              p-10 md:p-14 min-h-75 md:min-h-100"
           >
+
             <div className="font-mono font-black text-4xl text-black/20 mb-4">?</div>
+
             <div className="font-body font-black text-sm md:text-base text-black/30 uppercase text-center tracking-wider">
               Next_Signal_Pending...
             </div>

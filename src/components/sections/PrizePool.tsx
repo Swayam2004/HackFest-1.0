@@ -24,7 +24,7 @@ const prizes: PrizeCardData[] = [
     title: 'MAIN_FRAME_CHAMP',
     fileId: '#FILE_001',
     accessLevel: 'ACCESS_LEVEL: ALPHA',
-    icon: '/images/prize-icon-1.png',
+    icon: 'images/prize-icon-1.png',
   },
   {
     amount: '5K',
@@ -32,7 +32,7 @@ const prizes: PrizeCardData[] = [
     title: 'GRAND_SYS_ADMIN',
     fileId: '#SYSTEM_ROOT',
     accessLevel: 'TOTAL_POOL_RESERVE',
-    icon: '/images/prize-icon-2.png',
+    icon: 'images/prize-icon-2.png',
     isGrand: true,
   },
   {
@@ -41,7 +41,7 @@ const prizes: PrizeCardData[] = [
     title: 'NEURAL_EXPLORER',
     fileId: '#FILE_003',
     accessLevel: 'ACCESS_LEVEL: BETA',
-    icon: '/images/prize-icon-3.png',
+    icon: 'images/prize-icon-3.png',
   },
 ];
 
@@ -76,7 +76,7 @@ function PrizeCard({ prize, index }: { prize: PrizeCardData; index: number }) {
       animate={inView ? 'visible' : 'hidden'}
       whileHover={{ y: -8, transition: { duration: 0.2 } }}
       className={`
-        border-4 border-hack-black h-80 md:h-[404px] relative
+        border-4 border-hack-black h-80 md:h-101 relative
         transition-transform
         ${prize.isGrand
           ? 'bg-hack-red shadow-[10px_10px_0px_#000] md:shadow-[15px_15px_0px_#000]'
@@ -94,7 +94,7 @@ function PrizeCard({ prize, index }: { prize: PrizeCardData; index: number }) {
         <motion.img
           src={prize.icon}
           alt=""
-          className="h-8 md:h-[50px] w-auto opacity-90"
+          className="h-8 md:h-12.5 w-auto opacity-90"
           variants={popIn}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
@@ -114,7 +114,7 @@ function PrizeCard({ prize, index }: { prize: PrizeCardData; index: number }) {
       </div>
 
       {/* Amount */}
-      <div className="absolute top-28 md:top-[148px] left-6 md:left-10 right-6 md:right-10">
+      <div className="absolute top-28 md:top-37 left-6 md:left-10 right-6 md:right-10">
         <div
           ref={amountRef}
           className={`font-display font-bold text-5xl sm:text-6xl md:text-[7vw] lg:text-8xl leading-none
@@ -125,7 +125,7 @@ function PrizeCard({ prize, index }: { prize: PrizeCardData; index: number }) {
       </div>
 
       {/* Title */}
-      <div className="absolute top-48 md:top-[260px] left-6 md:left-10 right-6 md:right-10">
+      <div className="absolute top-48 md:top-65 left-6 md:left-10 right-6 md:right-10">
         <div className={`font-body font-black text-[10px] sm:text-xs md:text-sm lg:text-base tracking-widest uppercase
           ${prize.isGrand ? 'text-white' : 'text-hack-black'}`}>
           {prize.title}
@@ -133,7 +133,7 @@ function PrizeCard({ prize, index }: { prize: PrizeCardData; index: number }) {
       </div>
 
       {/* Access level */}
-      <div className="absolute top-60 md:top-[320px] left-6 md:left-10 right-6 md:right-10">
+      <div className="absolute top-60 md:top-80 left-6 md:left-10 right-6 md:right-10">
         {prize.isGrand ? (
           <div className="bg-hack-black inline-block px-3 md:px-4 py-1.5 md:py-2">
             <span className="font-body font-black text-[10px] md:text-sm text-hack-yellow uppercase">
@@ -141,7 +141,7 @@ function PrizeCard({ prize, index }: { prize: PrizeCardData; index: number }) {
             </span>
           </div>
         ) : (
-          <div className="border-t-2 border-black/20 pt-3 md:pt-[18px]">
+          <div className="border-t-2 border-black/20 pt-3 md:pt-4.5">
             <span className="font-mono text-[10px] md:text-xs text-black/60">
               {prize.accessLevel}
             </span>
@@ -160,7 +160,7 @@ export default function PrizePool() {
     <section
       ref={ref}
       id="prize-pool"
-      className="bg-white border-t-[8px] md:border-t-[16px] border-b-[8px] md:border-b-[16px] border-hack-black
+      className="bg-white border-t-8 md:border-t-16 border-b-8 md:border-b-16 border-hack-black
         py-16 md:py-28 px-4 md:px-6"
     >
       <div className="max-w-7xl w-full mx-auto">

@@ -151,12 +151,14 @@ export default function Register() {
         initial="hidden"
         animate={inView ? 'visible' : 'hidden'}
         variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
+
         className="bg-hack-black w-full max-w-[1400px] border-4 md:border-[12px] border-hack-red
           p-6 sm:p-10 md:p-14 lg:p-16 xl:p-20 relative overflow-hidden mx-auto"
+
       >
         {/* Decorative QR icon bg */}
         <div
-          className="absolute -top-7 -right-7 w-48 md:w-[360px] h-48 md:h-[360px] opacity-[0.08] rotate-12
+          className="absolute -top-7 -right-7 w-48 md:w-90 h-48 md:h-90 opacity-[0.08] rotate-12
             pointer-events-none font-mono text-[140px] md:text-[240px] text-hack-red leading-none
             overflow-hidden flex items-center justify-center"
         >
@@ -184,7 +186,6 @@ export default function Register() {
           className="mt-8 md:mt-16 flex flex-col items-start gap-6 lg:gap-8 relative z-10"
         >
           <SyncNowButton />
-
           <div className="font-mono text-sm md:text-base text-hack-red tracking-widest leading-relaxed mt-2 text-left">
             <div>[ STATUS: WAITING_FOR_USER_INPUT ]</div>
             <div>[ UPLOAD_SPEED: UNRESTRICTED ]</div>

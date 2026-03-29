@@ -70,7 +70,7 @@ export default function Hero() {
       {/* Ghost background text */}
       <div
         ref={ghostRef}
-        className="absolute -top-16 -left-[200px] -right-[200px] opacity-10 pointer-events-none
+        className="absolute -top-16 -left-50 -right-50 opacity-10 pointer-events-none
           font-display font-bold text-[120px] sm:text-[18vw] xl:text-[320px] tracking-tighter leading-[0.85] text-hack-black whitespace-nowrap select-none"
       >
         HACK_SYSTEM
@@ -79,14 +79,14 @@ export default function Hero() {
       {/* Scaffolding elements */}
       <div className="absolute inset-0 pointer-events-none hidden md:block">
         {/* Left vertical line + dot */}
-        <div className="absolute left-10 top-40 w-[1px] h-64 bg-black/20" />
+        <div className="absolute left-10 top-40 w-px h-64 bg-black/20" />
         <div className="absolute left-6 top-40 w-2 h-2 bg-hack-red" />
         {/* Right vertical line + dot */}
-        <div className="absolute right-10 bottom-40 w-[1px] h-64 bg-black/20" />
+        <div className="absolute right-10 bottom-40 w-px h-64 bg-black/20" />
         <div className="absolute right-6 bottom-40 w-2 h-2 bg-hack-red" />
         {/* Vertical label */}
         <div
-          className="absolute left-[42px] top-1/2 -translate-y-1/2 -rotate-90 origin-center
+          className="absolute left-10.5 top-1/2 -translate-y-1/2 -rotate-90 origin-center
             font-mono text-[10px] tracking-[5px] text-black/40 whitespace-nowrap"
         >
           SYSTEM_AUTH_REQUIRED_V.2.0.4
@@ -98,7 +98,7 @@ export default function Hero() {
         flex flex-col md:flex-row items-center justify-between gap-8 lg:gap-12">
 
         {/* Left text */}
-        <div ref={headline1Ref} className="flex-shrink-0 w-full md:max-w-[55%]">
+        <div ref={headline1Ref} className="shrink-0 w-full md:max-w-[55%]">
           {/* COMING SOON headline */}
           <motion.div
             initial="hidden"
@@ -149,15 +149,15 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.12 }}
-          className="flex-shrink-0 relative w-[260px] sm:w-[300px] md:w-[38vw] lg:max-w-[520px]"
+          className="shrink-0 relative w-65 sm:w-75 md:w-[38vw] lg:max-w-130"
         >
           {/* Dashed outer border */}
           <div className="absolute -inset-4 border-2 border-dashed border-black/30 pointer-events-none z-0 hidden sm:block" />
 
           {/* Image block */}
-          <div className="relative border-4 md:border-8 border-hack-black shadow-[12px_12px_0px_#000] md:shadow-[20px_20px_0px_#000] aspect-square overflow-hidden z-[1]">
+          <div className="relative border-4 md:border-8 border-hack-black shadow-[12px_12px_0px_#000] md:shadow-[20px_20px_0px_#000] aspect-square overflow-hidden z-1">
             <img
-              src="/images/hero-character.png"
+              src="images/hero-character.png"
               alt="HackFest Hero"
               className="w-full h-full object-cover saturate-0"
               onError={(e) => {
@@ -175,7 +175,7 @@ export default function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.4, type: 'spring', stiffness: 300, damping: 20 }}
             className="absolute -bottom-6 -right-2 md:-bottom-10 md:-right-6 bg-hack-red border-2 md:border-4 border-hack-black
-              p-3 md:p-5 shadow-[8px_8px_0px_#000] md:shadow-[12px_12px_0px_#000] z-[2]"
+              p-3 md:p-5 shadow-[8px_8px_0px_#000] md:shadow-[12px_12px_0px_#000] z-2"
           >
             <div className="font-body font-black text-xs sm:text-sm md:text-base lg:text-xl text-white uppercase leading-tight tracking-tight">
               ROOT_ACCESS

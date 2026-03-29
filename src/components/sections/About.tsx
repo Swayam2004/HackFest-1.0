@@ -54,14 +54,14 @@ const stats = [
     suffix: 'H',
     pad: 0,
     label: 'UPTIME_REQUIRED',
-    icon: '/images/icon-clock.png',
+    icon: 'images/icon-clock.png',
   },
   {
     target: 2048,
     suffix: '',
     pad: 4,
     label: 'CONNECTED_NODES',
-    icon: '/images/icon-nodes.png',
+    icon: 'images/icon-nodes.png',
   },
 ];
 
