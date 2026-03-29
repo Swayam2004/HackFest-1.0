@@ -24,7 +24,7 @@ const prizes: PrizeCardData[] = [
     title: 'MAIN_FRAME_CHAMP',
     fileId: '#FILE_001',
     accessLevel: 'ACCESS_LEVEL: ALPHA',
-    icon: '/images/prize-icon-1.png',
+    icon: 'images/prize-icon-1.png',
   },
   {
     amount: '5K',
@@ -32,7 +32,7 @@ const prizes: PrizeCardData[] = [
     title: 'GRAND_SYS_ADMIN',
     fileId: '#SYSTEM_ROOT',
     accessLevel: 'TOTAL_POOL_RESERVE',
-    icon: '/images/prize-icon-2.png',
+    icon: 'images/prize-icon-2.png',
     isGrand: true,
   },
   {
@@ -41,7 +41,7 @@ const prizes: PrizeCardData[] = [
     title: 'NEURAL_EXPLORER',
     fileId: '#FILE_003',
     accessLevel: 'ACCESS_LEVEL: BETA',
-    icon: '/images/prize-icon-3.png',
+    icon: 'images/prize-icon-3.png',
   },
 ];
 

@@ -157,7 +157,7 @@ export default function Hero() {
           {/* Image block */}
           <div className="relative border-4 md:border-8 border-hack-black shadow-[12px_12px_0px_#000] md:shadow-[20px_20px_0px_#000] aspect-square overflow-hidden z-1">
             <img
-              src="/images/hero-character.png"
+              src="images/hero-character.png"
               alt="HackFest Hero"
               className="w-full h-full object-cover saturate-0"
               onError={(e) => {

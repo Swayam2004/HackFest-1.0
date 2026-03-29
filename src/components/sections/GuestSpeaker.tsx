@@ -9,7 +9,7 @@ const speakers = [
     role: 'SECURITY ARCHITECT',
     rank: 'LEGENDARY',
     cpu: '99%',
-    image: '/images/speaker-1.png',
+    image: 'images/speaker-1.png',
   },
   {
     id: 'ID_002_CORE_SYNC',
@@ -17,7 +17,7 @@ const speakers = [
     role: 'DATA WHISPERER',
     rank: 'ELITE',
     cpu: '84%',
-    image: '/images/speaker-2.png',
+    image: 'images/speaker-2.png',
   },
 ];
 
@@ -121,7 +121,7 @@ export default function GuestSpeaker() {
               p-10 md:p-14 min-h-75 md:min-h-100"
           >
             <img
-              src="/images/placeholder-speaker.png"
+              src="images/placeholder-speaker.png"
               alt=""
               className="w-16 md:w-22 h-auto mb-4 opacity-40"
               onError={(e) => ((e.target as HTMLImageElement).style.display = 'none')}

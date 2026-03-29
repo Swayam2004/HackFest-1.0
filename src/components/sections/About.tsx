@@ -7,12 +7,12 @@ const stats = [
   {
     value: '48H',
     label: 'UPTIME_REQUIRED',
-    icon: '/images/icon-clock.png',
+    icon: 'images/icon-clock.png',
   },
   {
     value: '2048',
     label: 'CONNECTED_NODES',
-    icon: '/images/icon-nodes.png',
+    icon: 'images/icon-nodes.png',
   },
 ];
 
