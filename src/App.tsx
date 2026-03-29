@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import './styles/globals.css';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
@@ -12,29 +13,42 @@ import Events from './components/sections/Events';
 import Sponsors from './components/sections/Sponsors';
 import FAQs from './components/sections/FAQs';
 import ScanlineOverlay from './components/ui/ScanlineOverlay';
+import Preloader from './components/layout/Preloader';
 import { crtFlicker } from './lib/animations';
 
 export default function App() {
+  const [preloaderDone, setPreloaderDone] = useState(false);
+
   return (
-    <motion.div
-      variants={crtFlicker}
-      initial="initial"
-      animate="animate"
-    >
-      <ScanlineOverlay />
-      <Navbar />
-      <main>
-        <Hero />
-        <SectionDivider />
-        <About />
-        <Register />
-        <PrizePool />
-        <GuestSpeaker />
-        <Events />
-        <Sponsors />
-        <FAQs />
-      </main>
-      <Footer />
-    </motion.div>
+    <>
+      <AnimatePresence>
+        {!preloaderDone && (
+          <Preloader key="preloader" onDone={() => setPreloaderDone(true)} />
+        )}
+      </AnimatePresence>
+
+      {preloaderDone && (
+        <motion.div
+          variants={crtFlicker}
+          initial="initial"
+          animate="animate"
+        >
+          <ScanlineOverlay />
+          <Navbar />
+          <main>
+            <Hero />
+            <SectionDivider />
+            <About />
+            <Register />
+            <PrizePool />
+            <GuestSpeaker />
+            <Events />
+            <Sponsors />
+            <FAQs />
+          </main>
+          <Footer />
+        </motion.div>
+      )}
+    </>
   );
 }
