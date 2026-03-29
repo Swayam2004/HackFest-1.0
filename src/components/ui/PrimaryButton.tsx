@@ -32,6 +32,7 @@ export default function PrimaryButton({
     font-body font-black tracking-wider uppercase
     select-none whitespace-nowrap relative cursor-pointer
     ${isPrimary ? 'bg-hack-red text-white border-4 border-white' : 'bg-hack-black text-white border-0'}
+    cyber-box-sm
     ${sizeClasses[size]}
     ${className}
   `;

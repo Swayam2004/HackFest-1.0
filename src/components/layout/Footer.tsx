@@ -40,11 +40,6 @@ export default function Footer() {
                   SYSTEM_DIAGNOSTIC_LOG_V2.0.4_STABLE
                 </div>
               </motion.div>
-              <motion.div custom={1} variants={brutalistEntrance}>
-                <div className="font-body font-black text-white uppercase text-sm sm:text-base md:text-lg lg:text-2xl">
-                  TECH_SOC // REWRITING_REALITY
-                </div>
-              </motion.div>
             </motion.div>
           </div>
         </div>
@@ -77,14 +72,18 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom row */}
-      <div className="border-t border-white/10 pt-4 md:pt-6 flex flex-col sm:flex-row justify-between items-center gap-2 opacity-40">
-        <span className="font-mono text-[10px] text-hack-yellow uppercase">
-          © 2024 TECH_SOC PROTOCOL
-        </span>
-        <span className="font-mono text-[10px] text-hack-yellow uppercase">
-          STAY_CONNECTED_OR_BE_DISCONNECTED
-        </span>
+      {/* Bottom row: Logos */}
+      <div className="mt-16 md:mt-24 flex justify-between items-center">
+        <img 
+          src="/images/tech soc.png" 
+          alt="Tech Soc" 
+          className="h-12 md:h-16 lg:h-20 w-auto opacity-70 hover:opacity-100 transition-opacity"
+        />
+        <img 
+          src="/images/outr.png" 
+          alt="OUTR Seal" 
+          className="h-14 md:h-20 lg:h-24 w-auto opacity-70 hover:opacity-100 transition-opacity"
+        />
       </div>
     </footer>
   );
