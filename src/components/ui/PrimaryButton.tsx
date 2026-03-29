@@ -28,13 +28,20 @@ export default function PrimaryButton({
   className = '',
 }: PrimaryButtonProps) {
   const isPrimary = variant === 'primary';
+  const lastHapticAtRef = React.useRef(0);
 
   const triggerHaptic = () => {
-    if (!haptic || typeof navigator === 'undefined' || !('vibrate' in navigator)) {
+    if (!haptic || typeof navigator === 'undefined' || typeof navigator.vibrate !== 'function') {
       return;
     }
 
-    navigator.vibrate(12);
+    const now = Date.now();
+    if (now - lastHapticAtRef.current < 80) {
+      return;
+    }
+    lastHapticAtRef.current = now;
+
+    navigator.vibrate([24, 12, 24]);
   };
 
   const baseClasses = `
@@ -53,6 +60,7 @@ export default function PrimaryButton({
       whileHover="hover"
       whileTap="tap"
       variants={buttonGlitch}
+      onTapStart={triggerHaptic}
       onPointerDown={triggerHaptic}
     >
       {children}
