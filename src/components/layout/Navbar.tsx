@@ -15,7 +15,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[100] bg-hack-yellow border-b-4 border-hack-black flex items-center justify-between px-4 py-3 md:px-6 md:py-4 lg:py-5">
+      <nav className="fixed top-0 left-0 right-0 z-100 bg-hack-yellow border-b-4 border-hack-black flex items-center justify-between px-4 py-3 md:px-6 md:py-4 lg:py-5">
         {/* Logo */}
         <GlitchText
           as="span"
@@ -51,22 +51,22 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <button
-          className="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 relative z-[110]"
+          className="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-1.5 relative z-110"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle navigation"
         >
           <motion.span
-            className="block w-7 h-[3px] bg-hack-black origin-center"
+            className="block w-7 h-0.75 bg-hack-black origin-center"
             animate={mobileOpen ? { rotate: 45, y: 7.5 } : { rotate: 0, y: 0 }}
             transition={{ duration: 0.15 }}
           />
           <motion.span
-            className="block w-7 h-[3px] bg-hack-black"
+            className="block w-7 h-0.75 bg-hack-black"
             animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
             transition={{ duration: 0.1 }}
           />
           <motion.span
-            className="block w-7 h-[3px] bg-hack-black origin-center"
+            className="block w-7 h-0.75 bg-hack-black origin-center"
             animate={mobileOpen ? { rotate: -45, y: -7.5 } : { rotate: 0, y: 0 }}
             transition={{ duration: 0.15 }}
           />
@@ -77,7 +77,7 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            className="fixed inset-0 z-[99] bg-hack-black flex flex-col items-center justify-center gap-8"
+            className="fixed inset-0 z-99 bg-hack-black flex flex-col items-center justify-center gap-8"
             initial={{ clipPath: 'inset(0 0 100% 0)' }}
             animate={{ clipPath: 'inset(0 0 0% 0)' }}
             exit={{ clipPath: 'inset(0 0 100% 0)' }}

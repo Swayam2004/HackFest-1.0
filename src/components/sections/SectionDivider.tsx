@@ -17,7 +17,7 @@ export default function SectionDivider() {
       {
         x: -totalWidth,
         ease: 'none',
-        duration: 18,
+        duration: 35,
         repeat: -1,
       }
     );

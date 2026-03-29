@@ -20,12 +20,12 @@ export default function Register() {
         initial="hidden"
         animate={inView ? 'visible' : 'hidden'}
         variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
-        className="bg-hack-black border-4 md:border-[12px] border-hack-red p-8 sm:p-12 md:p-16 lg:p-24 xl:p-36
+        className="bg-hack-black border-4 md:border-12 border-hack-red p-8 sm:p-12 md:p-16 lg:p-24 xl:p-36
           max-w-5xl w-full relative overflow-hidden mx-auto"
       >
         {/* Decorative QR icon bg */}
         <div
-          className="absolute -top-7 -right-7 w-48 md:w-[360px] h-48 md:h-[360px] opacity-[0.08] rotate-12
+          className="absolute -top-7 -right-7 w-48 md:w-90 h-48 md:h-90 opacity-[0.08] rotate-12
             pointer-events-none font-mono text-[140px] md:text-[240px] text-hack-red leading-none
             overflow-hidden flex items-center justify-center"
         >

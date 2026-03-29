@@ -35,7 +35,7 @@ function SpeakerCard({ speaker, index }: { speaker: typeof speakers[0]; index: n
       className="bg-hack-black border-4 border-hack-black flex flex-col relative group"
     >
       {/* Image area */}
-      <div className="relative w-full aspect-square overflow-hidden border-[8px] md:border-[16px] border-hack-black -mb-4 md:-mb-8">
+      <div className="relative w-full aspect-square overflow-hidden border-8 md:border-16 border-hack-black -mb-4 md:-mb-8">
         <img
           src={speaker.image}
           alt={speaker.name}
@@ -51,7 +51,7 @@ function SpeakerCard({ speaker, index }: { speaker: typeof speakers[0]; index: n
       </div>
 
       {/* Info panel */}
-      <div className="bg-white border-4 border-hack-black shadow-[8px_8px_0px_#000] md:shadow-[12px_12px_0px_#000] p-4 md:p-6 relative z-[1]">
+      <div className="bg-white border-4 border-hack-black shadow-[8px_8px_0px_#000] md:shadow-[12px_12px_0px_#000] p-4 md:p-6 relative z-1">
         {/* ID */}
         <div className="font-mono font-bold text-[10px] md:text-xs text-hack-red mb-1 md:mb-2 uppercase">
           {speaker.id}
@@ -68,7 +68,7 @@ function SpeakerCard({ speaker, index }: { speaker: typeof speakers[0]; index: n
         </div>
 
         {/* Divider + meta */}
-        <div className="border-t-2 border-hack-black pt-3 md:pt-[18px] flex justify-between items-center">
+        <div className="border-t-2 border-hack-black pt-3 md:pt-4.5 flex justify-between items-center">
           <div className="bg-hack-black px-2 py-0.5">
             <span className="font-mono text-[8px] md:text-[10px] text-white uppercase">
               RANK: {speaker.rank}
@@ -118,7 +118,7 @@ export default function GuestSpeaker() {
             initial="hidden"
             animate={inView ? 'visible' : 'hidden'}
             className="border-4 md:border-[6px] border-dashed border-black/20 flex flex-col items-center justify-center
-              p-10 md:p-14 min-h-[300px] md:min-h-[400px]"
+              p-10 md:p-14 min-h-75 md:min-h-100"
           >
             <img
               src="/images/placeholder-speaker.png"
