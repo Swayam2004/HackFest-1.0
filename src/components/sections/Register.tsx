@@ -51,7 +51,7 @@ export default function Register() {
           variants={brutalistEntrance}
           className="mt-8 md:mt-12 flex flex-col sm:flex-row items-start sm:items-center gap-6 md:gap-10"
         >
-          <PrimaryButton size="lg" href="#">
+          <PrimaryButton size="lg" href="#" haptic>
             SYNC_NOW
           </PrimaryButton>
 
