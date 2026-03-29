@@ -1,20 +1,121 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { brutalistEntrance, staggeredSlideUp } from '../../lib/animations';
 import HUDBracket from '../ui/HUDBracket';
+import CountUpNumber from '../ui/CountUpNumber';
+
+const BODY_TEXT =
+  "WELCOME TO THE NEXUS. HACK_FEST IS NOT JUST AN EVENT; IT'S A COGNITIVE REWRITE. WE MERGE RAW BRUTALIST ENGINEERING WITH THE PRECISION OF DYSTOPIAN UI.";
+
+function TypewriterText({ trigger }: { trigger: boolean }) {
+  const [displayed, setDisplayed] = useState('');
+  const [done, setDone] = useState(false);
+
+  useEffect(() => {
+    if (!trigger) return;
+    let i = 0;
+    setDisplayed('');
+    setDone(false);
+    const id = setInterval(() => {
+      i++;
+      setDisplayed(BODY_TEXT.slice(0, i));
+      if (i >= BODY_TEXT.length) {
+        clearInterval(id);
+        setDone(true);
+      }
+    }, 28); // ms per character
+    return () => clearInterval(id);
+  }, [trigger]);
+
+  return (
+    <p className="font-mono font-bold italic text-sm sm:text-base md:text-lg lg:text-xl text-white uppercase leading-relaxed">
+      {displayed}
+      {!done && (
+        <span
+          className="text-hack-red"
+          style={{ animation: 'tw-blink 0.6s step-start infinite' }}
+        >
+          ▋
+        </span>
+      )}
+      <style>{`
+        @keyframes tw-blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+      `}</style>
+    </p>
+  );
+}
 
 const stats = [
   {
-    value: '48H',
+    target: 48,
+    suffix: 'H',
+    pad: 0,
     label: 'UPTIME_REQUIRED',
     icon: 'images/icon-clock.png',
   },
   {
-    value: '2048',
+    target: 2048,
+    suffix: '',
+    pad: 4,
     label: 'CONNECTED_NODES',
     icon: 'images/icon-nodes.png',
   },
 ];
+
+/** Sharp neon-flicker icon — alternates between 50% and 100% opacity */
+function FlickerIcon({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  const ref = useRef<HTMLImageElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    let running = true;
+    let timeout: ReturnType<typeof setTimeout>;
+
+    const flicker = () => {
+      if (!running) return;
+
+      // Build a random sequence of flicker steps
+      const steps = [1, 0.5, 1, 0.5, 1, 0.5, 1];
+      let delay = 0;
+
+      steps.forEach((opacity, i) => {
+        timeout = setTimeout(() => {
+          if (el) el.style.opacity = String(opacity);
+        }, delay);
+        // Short sharp intervals between each step
+        delay += i === 0 ? 80 : 60;
+      });
+
+      // Pause then repeat at random interval (1.5–4s)
+      const pause = 1500 + Math.random() * 2500;
+      timeout = setTimeout(flicker, delay + pause);
+    };
+
+    // Small initial delay so not all icons flicker at once
+    timeout = setTimeout(flicker, Math.random() * 1200);
+
+    return () => {
+      running = false;
+      clearTimeout(timeout);
+    };
+  }, []);
+
+  return (
+    <img
+      ref={ref}
+      src={src}
+      alt={alt}
+      className={className}
+      style={{ opacity: 1, transition: 'none' }}
+      onError={(e) => ((e.target as HTMLImageElement).style.display = 'none')}
+    />
+  );
+}
 
 export default function About() {
   const ref = useRef<HTMLElement>(null);
@@ -24,14 +125,14 @@ export default function About() {
     <section
       ref={ref}
       id="about"
-      className="bg-hack-black grid grid-cols-1 md:grid-cols-2 min-h-[600px] lg:min-h-[960px] border-b-8 border-hack-black"
+      className="bg-hack-black grid grid-cols-1 md:grid-cols-2 min-h-[min(100vh-6rem,900px)] border-b-8 border-hack-black"
     >
       {/* Left col — red bg */}
-      <div className="bg-hack-red md:border-r-8 border-hack-black flex flex-col justify-center p-10 sm:p-16 md:p-20 lg:p-24 overflow-hidden relative">
+      <div className="bg-hack-red md:border-r-8 border-hack-black flex flex-col justify-center p-8 sm:p-12 md:p-16 lg:p-20 overflow-hidden relative">
         {/* Ghost number */}
         <div
           className="absolute -left-10 md:-left-20 top-1/2 -translate-y-[60%]
-            font-body font-black text-[100px] sm:text-[140px] md:text-[22vw] xl:text-[320px]
+            font-body font-black text-[100px] sm:text-[140px] md:text-[20vw] xl:text-[220px]
             text-black/20 tracking-tighter leading-[0.85] select-none pointer-events-none z-0"
         >
           01
@@ -48,7 +149,7 @@ export default function About() {
               key={word}
               custom={i}
               variants={brutalistEntrance}
-              className="font-display font-bold text-[40px] sm:text-[56px] md:text-[7vw] xl:text-[128px]
+              className="font-display font-bold text-[36px] sm:text-[48px] md:text-[6vw] xl:text-[6vw] 2xl:text-[96px]
                 leading-none tracking-tight uppercase text-white"
             >
               {word}
@@ -66,7 +167,7 @@ export default function About() {
       </div>
 
       {/* Right col — black bg */}
-      <div className="flex flex-col justify-center p-10 sm:p-16 md:p-20 lg:p-24 relative">
+      <div className="flex flex-col justify-center p-8 sm:p-12 md:p-16 lg:p-20 relative">
         {/* HUD bracket corners */}
         <HUDBracket size={48} offset={-12} color="#c00100">
           <motion.div
@@ -84,19 +185,7 @@ export default function About() {
 
             {/* Body */}
             <motion.div custom={1} variants={brutalistEntrance}>
-              <p className="font-mono font-bold italic text-sm sm:text-base md:text-lg lg:text-xl text-white uppercase leading-relaxed">
-                Welcome to the nexus.
-                <br />
-                HACK_FEST is not just an
-                <br className="hidden sm:block" />
-                event; it&apos;s a cognitive
-                <br className="hidden sm:block" />
-                rewrite. We merge raw brutalist
-                <br className="hidden sm:block" />
-                engineering with the precision
-                <br className="hidden sm:block" />
-                of dystopian UI.
-              </p>
+              <TypewriterText trigger={inView} />
             </motion.div>
 
             {/* Stats */}
@@ -107,7 +196,7 @@ export default function About() {
             >
               {stats.map((stat, i) => (
                 <motion.div
-                  key={stat.value}
+                  key={stat.label}
                   custom={i}
                   variants={staggeredSlideUp}
                   initial="hidden"
@@ -115,18 +204,24 @@ export default function About() {
                   className="bg-white/5 border-4 border-hack-red p-5 md:p-7 flex items-center justify-between h-20 md:h-28"
                 >
                   <div>
-                    <div className="font-mono font-bold text-xl sm:text-2xl md:text-3xl text-hack-red leading-none">
-                      {stat.value}
-                    </div>
+                    {/* Animated counter */}
+                    <CountUpNumber
+                      target={stat.target}
+                      suffix={stat.suffix}
+                      pad={stat.pad}
+                      duration={1.8}
+                      className="font-mono font-bold text-xl sm:text-2xl md:text-3xl text-hack-red leading-none"
+                    />
                     <div className="font-mono text-[10px] md:text-xs text-white/60 tracking-widest uppercase mt-1">
                       {stat.label}
                     </div>
                   </div>
-                  <img
+
+                  {/* Neon-flicker icon */}
+                  <FlickerIcon
                     src={stat.icon}
                     alt=""
-                    className="h-7 md:h-9 w-auto opacity-80"
-                    onError={(e) => ((e.target as HTMLImageElement).style.display = 'none')}
+                    className="h-7 md:h-9 w-auto"
                   />
                 </motion.div>
               ))}
