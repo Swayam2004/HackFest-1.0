@@ -142,6 +142,16 @@ export default function PeripheralNodes() {
         .clip-diagonal {
           clip-path: polygon(0 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%);
         }
+
+        /* Chamfered Button Logic */
+        .btn-chamfer {
+          clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+          transition: clip-path 0.15s ease-out;
+        }
+        .group\\/btn:hover.btn-chamfer,
+        .group\\/btn:hover .btn-chamfer {
+          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+        }
       `}</style>
 
       <div className="max-w-7xl w-full mx-auto px-4 md:px-6">
@@ -184,10 +194,10 @@ export default function PeripheralNodes() {
             <button 
               onClick={handlePrev}
               disabled={startIndex === 0}
-              className="group flex flex-col items-center justify-center w-12 lg:w-16 h-32 bg-hack-black border-2 border-hack-red text-hack-red font-display cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:bg-hack-red hover:text-black transition-all hover:-translate-x-1 hover:-translate-y-1 shadow-[4px_4px_0_0_#c00100] hover:shadow-[0_0_0_0_#c00100]"
+              className="group flex flex-col items-center justify-center w-12 lg:w-16 h-32 bg-hack-yellow border-2 border-hack-red text-hack-red font-display cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:bg-hack-red hover:text-hack-yellow transition-all hover:-translate-x-1 hover:-translate-y-1 shadow-[4px_4px_0_0_#c00100] hover:shadow-[0_0_0_0_#c00100]"
             >
               <span className="text-2xl mt-1">{'<'}</span>
-              <span className="text-[10px] font-mono mt-2 tracking-widest uppercase transform -rotate-90">PREV</span>
+              <span className="text-[10px] sm:text-xs font-mono mt-2 tracking-widest uppercase transform -rotate-90">PREV</span>
             </button>
           </div>
 
@@ -248,13 +258,17 @@ export default function PeripheralNodes() {
                     </p>
                   </div>
                   
-                  <button className="group/btn relative font-mono font-bold text-sm sm:text-base border-2 border-hack-red bg-transparent text-hack-red py-3 md:py-4 uppercase overflow-hidden hover:text-black mt-4 transition-colors">
-                    <span className="relative z-10 flex items-center justify-center gap-2">
-                      <span className="group-hover/btn:hidden">_INITIATE_PROTOCOL</span>
-                      <span className="hidden group-hover/btn:inline-flex items-center gap-2">ACCESSING <span className="animate-pulse">_</span></span>
-                    </span>
-                    <div className="absolute inset-0 bg-hack-red -translate-x-[101%] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out" />
-                  </button>
+                  {/* Chamfered Button Structure */}
+                  <div className="group/btn relative mt-4 pt-2 cursor-pointer bg-hack-red p-[2px] btn-chamfer">
+                    <button className="relative w-full block font-mono font-bold text-xs sm:text-sm bg-black text-hack-red py-3 md:py-3.5 uppercase overflow-hidden hover:text-black transition-colors outline-none btn-chamfer">
+                      <span className="relative z-10 flex items-center justify-center gap-2">
+                        <span className="group-hover/btn:hidden">_INITIATE_PROTOCOL</span>
+                        <span className="hidden group-hover/btn:inline-flex items-center gap-2">ACCESSING <span className="animate-pulse">_</span></span>
+                      </span>
+                      {/* Red fill overlay that slides in on hover */}
+                      <div className="absolute inset-0 bg-hack-red -translate-x-[101%] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out" />
+                    </button>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -265,10 +279,10 @@ export default function PeripheralNodes() {
             <button 
               onClick={handleNext}
               disabled={startIndex + 3 >= EVENTS_DATA.length}
-              className="group flex flex-col items-center justify-center w-12 lg:w-16 h-32 bg-hack-black border-2 border-hack-red text-hack-red font-display cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:bg-hack-red hover:text-black transition-all hover:translate-x-1 hover:-translate-y-1 shadow-[4px_4px_0_0_#c00100] hover:shadow-[0_0_0_0_#c00100]"
+              className="group flex flex-col items-center justify-center w-12 lg:w-16 h-32 bg-hack-yellow border-2 border-hack-red text-hack-red font-display cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:bg-hack-red hover:text-hack-yellow transition-all hover:translate-x-1 hover:-translate-y-1 shadow-[4px_4px_0_0_#c00100] hover:shadow-[0_0_0_0_#c00100]"
             >
               <span className="text-2xl mt-1">{'>'}</span>
-              <span className="text-[10px] font-mono mt-2 tracking-widest uppercase transform rotate-90">NEXT</span>
+              <span className="text-[10px] sm:text-xs font-mono mt-2 tracking-widest uppercase transform rotate-90">NEXT</span>
             </button>
           </div>
 

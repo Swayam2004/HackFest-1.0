@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import './styles/globals.css';
-import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
 import Hero from './components/sections/Hero';
 import SectionDivider from './components/sections/SectionDivider';
@@ -35,7 +34,6 @@ export default function App() {
           animate="animate"
         >
           <ScanlineOverlay />
-          <Navbar />
           <main>
             <Hero />
             <SectionDivider />
