@@ -34,17 +34,15 @@ jobs:
           cache-dependency-path: '**/package-lock.json'
 
       - name: Install dependencies
-        working-directory: HackFest-1.0
         run: npm ci
 
       - name: Build project
-        working-directory: HackFest-1.0
         run: npm run build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: HackFest-1.0/dist
+          path: dist
 
   deploy:
     name: Deploy
