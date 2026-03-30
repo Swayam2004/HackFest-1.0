@@ -35,56 +35,64 @@ const faqs = [
   },
 ];
 
-function FAQItem({ faq, index }: { faq: typeof faqs[0]; index: number }) {
-  const [open, setOpen] = useState(false);
-
+function FAQItem({ 
+  faq, 
+  index,
+  isOpen,
+  onToggle
+}: { 
+  faq: typeof faqs[0]; 
+  index: number;
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
   return (
     <motion.div
       custom={index}
       variants={brutalistEntrance}
       className={`
-        relative transition-all duration-75
-        ${open ? 'bg-white/[0.08] border-4 border-hack-red' : 'bg-white/[0.05] border-4 border-white'}
+        relative duration-0 transition-none
+        ${isOpen 
+          ? 'bg-hack-red/5 border-4 border-hack-red mx-0 shadow-[8px_8px_0_0_#fde403]' 
+          : 'bg-white/[0.02] border-4 border-white/20 hover:border-hack-red hover:bg-black hover:shadow-[8px_8px_0_0_#fde403] mx-0'}
       `}
     >
       {/* HUD bracket — top left */}
-      <div className="absolute -top-2 -left-2 w-5 h-5 border-t-4 border-l-4 border-hack-black z-[1]" />
+      <div className={`absolute -top-2 -left-2 w-5 h-5 border-t-4 border-l-4 z-[1] duration-0 ${isOpen ? 'border-hack-red' : 'border-white/20 group-hover:border-hack-red'}`} />
       {/* HUD bracket — bottom right */}
-      <div className="absolute -bottom-2 -right-2 w-5 h-5 border-b-4 border-r-4 border-hack-black z-[1]" />
+      <div className={`absolute -bottom-2 -right-2 w-5 h-5 border-b-4 border-r-4 z-[1] duration-0 ${isOpen ? 'border-hack-red' : 'border-white/20 group-hover:border-hack-red'}`} />
 
       {/* Question row */}
       <button
-        onClick={() => setOpen(!open)}
-        className="w-full bg-transparent border-0 p-6 sm:p-8 md:p-11 flex gap-3 md:gap-6 items-start cursor-pointer text-left"
+        onClick={onToggle}
+        className="w-full bg-transparent border-0 p-6 sm:p-8 md:p-11 flex gap-3 md:gap-6 items-center cursor-pointer text-left group"
       >
-        <span className="font-mono font-bold text-base sm:text-lg md:text-xl lg:text-2xl text-hack-red shrink-0 leading-tight">
+        <span className={`font-mono font-bold text-base sm:text-lg md:text-xl lg:text-2xl shrink-0 leading-tight duration-0 ${isOpen ? 'text-hack-red' : 'text-white/40 group-hover:text-hack-red'}`}>
           QRY:
         </span>
-        <span className="font-body font-black text-sm sm:text-base md:text-xl lg:text-[28px] text-white uppercase leading-tight flex-1">
+        <span className={`font-body font-black text-sm sm:text-base md:text-xl lg:text-[28px] uppercase leading-tight flex-1 duration-0 ${isOpen ? 'text-white' : 'text-white/40 group-hover:text-white'}`}>
           {faq.question}
         </span>
-        <motion.span
-          className="font-mono text-xl md:text-2xl text-hack-red shrink-0 leading-none"
-          animate={{ rotate: open ? 45 : 0 }}
-          transition={{ duration: 0.1 }}
-        >
-          +
-        </motion.span>
+        <span className={`font-mono font-bold text-xs sm:text-sm md:text-base shrink-0 leading-none flex items-center gap-2 duration-0 ${isOpen ? 'text-hack-red' : 'text-white/40 group-hover:text-hack-red'}`}>
+          {isOpen ? '[ END_QRY ]' : '[ DECRYPT ]'}
+          <span className="animate-pulse">█</span>
+        </span>
       </button>
 
       {/* Answer */}
       <AnimatePresence>
-        {open && (
+        {isOpen && (
           <motion.div
             key="answer"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.15, ease: [0.25, 0, 0.25, 1] }}
+            transition={{ duration: 0.25, ease: (t) => Math.floor(t * 6) / 6 }}
             className="overflow-hidden"
           >
             <div className="px-6 sm:px-8 md:px-11 pb-6 sm:pb-8 md:pb-11 pl-12 sm:pl-16 md:pl-[calc(44px+24px+1.5rem)]">
-              <div className="border-l-4 border-hack-red pl-4 md:pl-7">
+              {/* Data Ribbon */}
+              <div className="border-l-2 border-dashed border-hack-red pl-4 md:pl-7">
                 <p className="font-mono text-xs sm:text-sm md:text-base lg:text-lg text-hack-yellow/80 leading-relaxed uppercase">
                   {faq.answer}
                 </p>
@@ -98,6 +106,7 @@ function FAQItem({ faq, index }: { faq: typeof faqs[0]; index: number }) {
 }
 
 export default function FAQs() {
+  const [openId, setOpenId] = useState<number | null>(null);
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-100px' });
 
@@ -136,7 +145,13 @@ export default function FAQs() {
           className="flex flex-col gap-4 md:gap-6"
         >
           {faqs.map((faq, i) => (
-            <FAQItem key={faq.id} faq={faq} index={i} />
+            <FAQItem 
+              key={faq.id} 
+              faq={faq} 
+              index={i}
+              isOpen={openId === faq.id}
+              onToggle={() => setOpenId(openId === faq.id ? null : faq.id)}
+            />
           ))}
         </motion.div>
       </div>
