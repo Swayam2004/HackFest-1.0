@@ -1,6 +1,8 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { brutalistEntrance, buttonGlitch } from '../../lib/animations';
+import CyberBox from '../ui/CyberBox';
+import HudDataChip from '../ui/HudDataChip';
 
 /* ─── Scramble Text Hook ─────────────────────────────────────────────── */
 const GLITCH_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYz01#$%&@!?_/\\<>';
@@ -101,17 +103,20 @@ function SyncNowButton() {
         whileHover="hover"
         whileTap="tap"
         variants={buttonGlitch}
-        className="
-          inline-flex items-center justify-center font-body font-black tracking-widest uppercase
-          select-none whitespace-nowrap cursor-pointer
-          px-8 py-5 text-xl md:px-12 md:py-6 md:text-3xl
-          border-4 border-white
-          bg-hack-red text-white
-          group-hover:bg-white group-hover:text-hack-black group-hover:border-hack-red
-          transition-colors duration-0
-        "
+        className="inline-block"
       >
-        <span>SYNC_NOW</span>
+        <CyberBox
+          bgClass={hovered ? 'bg-white' : 'bg-hack-red'}
+          borderClass={hovered ? 'bg-hack-red' : 'bg-white'}
+          borderWidth={4}
+          size="sm"
+          innerClassName="px-8 py-5 md:px-12 md:py-6 inline-flex items-center justify-center
+            font-body font-black tracking-widest uppercase select-none whitespace-nowrap cursor-pointer
+            text-xl md:text-3xl"
+          style={{ color: hovered ? '#000' : '#fff' }}
+        >
+          SYNC_NOW
+        </CyberBox>
       </motion.a>
 
       {/* Right structural bracket */}
@@ -151,45 +156,62 @@ export default function Register() {
         initial="hidden"
         animate={inView ? 'visible' : 'hidden'}
         variants={{ visible: { transition: { staggerChildren: 0.06 } } }}
-        className="bg-hack-black w-full max-w-[1400px] border-4 md:border-[12px] border-hack-red
-          p-6 sm:p-10 md:p-14 lg:p-16 xl:p-20 relative overflow-hidden mx-auto"
       >
-        {/* Decorative QR icon bg */}
-        <div
-          className="absolute -top-7 -right-7 w-48 md:w-[360px] h-48 md:h-[360px] opacity-[0.08] rotate-12
-            pointer-events-none font-mono text-[140px] md:text-[240px] text-hack-red leading-none
-            overflow-hidden flex items-center justify-center"
+        <CyberBox
+          bgClass="bg-hack-black"
+          borderClass="bg-hack-red"
+          borderWidth={4}
+          size="md"
+          className="w-full max-w-[1400px] mx-auto"
+          innerClassName="p-6 sm:p-10 md:p-14 lg:p-16 xl:p-20 relative overflow-hidden"
         >
-          ▣
-        </div>
-
-        {/* Headline — scramble reveal per word */}
-        <motion.div custom={0} variants={brutalistEntrance} className="relative z-10">
-          {WORDS.map((word, i) => (
-            <ScrambleWord
-              key={word}
-              word={word}
-              trigger={inView}
-              delay={i * 180}
-              isLast={i === WORDS.length - 1}
-              className={wordClass}
-            />
-          ))}
-        </motion.div>
-
-        {/* CTA row */}
-        <motion.div
-          custom={1}
-          variants={brutalistEntrance}
-          className="mt-8 md:mt-16 flex flex-col items-start gap-6 lg:gap-8 relative z-10"
-        >
-          <SyncNowButton />
-
-          <div className="font-mono text-sm md:text-base text-hack-red tracking-widest leading-relaxed mt-2 text-left">
-            <div>[ STATUS: WAITING_FOR_USER_INPUT ]</div>
-            <div>[ UPLOAD_SPEED: UNRESTRICTED ]</div>
+          {/* Decorative QR icon bg */}
+          <div
+            className="absolute -top-7 -right-7 w-48 md:w-[360px] h-48 md:h-[360px] opacity-[0.08] rotate-12
+              pointer-events-none font-mono text-[140px] md:text-[240px] text-hack-red leading-none
+              overflow-hidden flex items-center justify-center"
+          >
+            ▣
           </div>
-        </motion.div>
+
+          {/* Headline — scramble reveal per word */}
+          <motion.div custom={0} variants={brutalistEntrance} className="relative z-10">
+            {WORDS.map((word, i) => (
+              <ScrambleWord
+                key={word}
+                word={word}
+                trigger={inView}
+                delay={i * 180}
+                isLast={i === WORDS.length - 1}
+                className={wordClass}
+              />
+            ))}
+          </motion.div>
+
+          {/* CTA row */}
+          <motion.div
+            custom={1}
+            variants={brutalistEntrance}
+            className="mt-8 md:mt-16 flex flex-col items-start gap-6 lg:gap-8 relative z-10"
+          >
+            <SyncNowButton />
+
+            <div className="flex flex-wrap gap-2 mt-2">
+              <HudDataChip
+                label="STATUS"
+                value="WAITING_FOR_USER_INPUT"
+                status="error"
+                tooltip="PENDING REGISTRATION"
+              />
+              <HudDataChip
+                label="UPLOAD_SPEED"
+                value="UNRESTRICTED"
+                status="primary"
+                tooltip="BANDWIDTH: MAX"
+              />
+            </div>
+          </motion.div>
+        </CyberBox>
       </motion.div>
     </section>
   );

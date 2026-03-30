@@ -52,6 +52,101 @@ const EVENTS_DATA = [
   },
 ];
 
+/* ── Protocol Button — React-state driven, no CSS group/btn escaping ── */
+function ProtocolButton() {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <div
+      className="relative mt-4 pt-2 cursor-pointer"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Outer red border + chamfer — hard yellow outline pulse on hover */}
+      <div
+        className="bg-hack-red p-[2px]"
+        style={{
+          clipPath: hovered
+            ? 'polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0)'
+            : 'polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)',
+          transition: 'clip-path 0ms step-end',
+          animation: hovered ? 'btn-border-flash 0.45s steps(2, end) infinite' : 'none',
+        }}
+      >
+        <button
+          className="relative w-full block font-mono font-bold text-xs sm:text-sm
+            py-3 md:py-3.5 uppercase overflow-hidden outline-none"
+          style={{
+            clipPath: hovered
+              ? 'polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0)'
+              : 'polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)',
+            background: '#000',
+            color: hovered ? '#ffffff' : '#c00100',
+            transition: 'color 0ms step-end',
+          }}
+        >
+          {/* Step-wipe red fill — animates scaleX 0→1 on hover */}
+          <div
+            aria-hidden
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: '#c00100',
+              transformOrigin: 'left center',
+              animation: hovered
+                ? 'btn-fill-wipe 0.08s steps(8, end) forwards'
+                : 'none',
+              transform: hovered ? undefined : 'scaleX(0)',
+              zIndex: 0,
+            }}
+          />
+
+          {/* Scanline sweep bar */}
+          <div
+            aria-hidden
+            style={{
+              position: 'absolute',
+              top: 0, left: 0,
+              width: 3,
+              height: '100%',
+              background: 'rgba(255,255,255,0.5)',
+              zIndex: 2,
+              pointerEvents: 'none',
+              animation: hovered
+                ? 'btn-scanbar 0.1s steps(10, end) forwards'
+                : 'none',
+              transform: 'translateX(-100%)',
+            }}
+          />
+
+          {/* Text layer — always above fill */}
+          <span style={{ position: 'relative', zIndex: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', letterSpacing: '0.1em' }}>
+            {!hovered && <span>_INITIATE_PROTOCOL</span>}
+            {hovered && (
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, color: '#ffffff', letterSpacing: '0.12em' }}>
+                ACCESSING
+                {/* CRT block cursor — hard blink */}
+                <span
+                  style={{
+                    display: 'inline-block',
+                    width: 7,
+                    height: '1em',
+                    background: '#ffffff',
+                    verticalAlign: 'text-bottom',
+                    marginLeft: 1,
+                    flexShrink: 0,
+                    animation: 'btn-crt-blink 0.5s steps(1, end) infinite',
+                  }}
+                />
+              </span>
+            )}
+          </span>
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function PeripheralNodes() {
   const [startIndex, setStartIndex] = useState(0);
   const [isFlashing, setIsFlashing] = useState(false);
@@ -97,12 +192,10 @@ export default function PeripheralNodes() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          /* Gritty, high-contrast black and white filter */
           filter: grayscale(100%) contrast(150%) brightness(0.8);
-          transition: filter 0s; /* No smooth transitions allowed */
+          transition: filter 0s;
         }
 
-        /* Red overlay scanline effect */
         .peripheral-visual-overlay {
           position: absolute;
           top: 0; left: 0; right: 0; bottom: 0;
@@ -117,7 +210,6 @@ export default function PeripheralNodes() {
         }
 
         .peripheral-tactical-card:hover .peripheral-card-visual img {
-          /* On hover, tint the image aggressively red */
           filter: grayscale(100%) contrast(200%) sepia(100%) hue-rotate(-50deg) saturate(500%);
         }
 
@@ -143,14 +235,30 @@ export default function PeripheralNodes() {
           clip-path: polygon(0 0, 100% 0, 100% calc(100% - 24px), calc(100% - 24px) 100%, 0 100%);
         }
 
-        /* Chamfered Button Logic */
-        .btn-chamfer {
-          clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
-          transition: clip-path 0.15s ease-out;
+        /* ── Protocol Button keyframes (referenced via inline style animation names) ── */
+
+        /* Step-wipe fill */
+        @keyframes btn-fill-wipe {
+          0%   { transform: scaleX(0); }
+          100% { transform: scaleX(1); }
         }
-        .group\\/btn:hover.btn-chamfer,
-        .group\\/btn:hover .btn-chamfer {
-          clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 0 0);
+
+        /* Scanline sweep */
+        @keyframes btn-scanbar {
+          0%   { transform: translateX(0); }
+          100% { transform: translateX(400px); }
+        }
+
+        /* CRT cursor hard blink */
+        @keyframes btn-crt-blink {
+          0%, 49%  { opacity: 1; }
+          50%, 100% { opacity: 0; }
+        }
+
+        /* Yellow border flash */
+        @keyframes btn-border-flash {
+          0%, 100% { outline: 2px solid #fde403; }
+          50%       { outline: 2px solid transparent; }
         }
       `}</style>
 
@@ -258,17 +366,8 @@ export default function PeripheralNodes() {
                     </p>
                   </div>
                   
-                  {/* Chamfered Button Structure */}
-                  <div className="group/btn relative mt-4 pt-2 cursor-pointer bg-hack-red p-[2px] btn-chamfer">
-                    <button className="relative w-full block font-mono font-bold text-xs sm:text-sm bg-black text-hack-red py-3 md:py-3.5 uppercase overflow-hidden hover:text-black transition-colors outline-none btn-chamfer">
-                      <span className="relative z-10 flex items-center justify-center gap-2">
-                        <span className="group-hover/btn:hidden">_INITIATE_PROTOCOL</span>
-                        <span className="hidden group-hover/btn:inline-flex items-center gap-2">ACCESSING <span className="animate-pulse">_</span></span>
-                      </span>
-                      {/* Red fill overlay that slides in on hover */}
-                      <div className="absolute inset-0 bg-hack-red -translate-x-[101%] group-hover/btn:translate-x-0 transition-transform duration-200 ease-out" />
-                    </button>
-                  </div>
+                  {/* ── INITIATE_PROTOCOL Button ── */}
+                  <ProtocolButton />
                 </div>
               </motion.div>
             ))}
