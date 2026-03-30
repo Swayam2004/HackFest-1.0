@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main        # change to your default branch if different (e.g. master)
+      - DevMob
   workflow_dispatch:  # allows manual trigger from GitHub UI
 
 permissions:
