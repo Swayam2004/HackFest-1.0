@@ -203,14 +203,31 @@ export default function Hero() {
         <img
           src="/images/hf-logo.svg"
           alt="HF Logo"
-          className="w-12 h-8 md:w-16 md:h-10"
+          className="w-16 h-[29px] md:w-24 md:h-[43px]"
           onError={(e) => ((e.target as HTMLImageElement).style.display = 'none')}
         />
       </motion.div>
 
-      {/* ===== Countdown Timer — top right ===== */}
-      <div className="absolute top-6 md:top-8 right-6 md:right-12 z-20">
+      {/* ===== Countdown Timer + HUD stats — top right ===== */}
+      <div className="absolute top-6 md:top-8 right-6 md:right-12 z-20 flex flex-col items-end gap-3">
         <CountdownTimer />
+        {/* HUD stat rows */}
+        <div className="flex flex-col items-end gap-1 mt-1">
+          {[
+            { label: 'SYS_LOAD',        value: '12%'   },
+            { label: 'NODES_CONNECTED', value: '404'   },
+            { label: 'SECURITY_LEVEL',  value: 'ALPHA' },
+          ].map(({ label, value }) => (
+            <div key={label} className="flex items-center gap-1.5">
+              <span className="font-mono text-[10px] md:text-[11px] text-hack-black/60 tracking-widest uppercase">
+                {label}
+              </span>
+              <span className="font-mono text-[10px] md:text-[11px] text-hack-black font-bold tracking-widest">
+                : {value}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* ===== Side Navigation — left side (desktop only) ===== */}
@@ -221,7 +238,7 @@ export default function Hero() {
           hidden: {},
           visible: { transition: { staggerChildren: 0.06, delayChildren: 0.3 } },
         }}
-        className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 z-20 hidden md:flex flex-col gap-3 md:gap-4"
+        className="absolute left-6 md:left-12 top-[45%] -translate-y-1/2 z-20 hidden md:flex flex-col gap-3 md:gap-4"
       >
         {sideNavLinks.map((link, i) => (
           <motion.a
