@@ -199,13 +199,33 @@ export default function Register() {
             <div className="flex flex-wrap gap-2 mt-2">
               <HudDataChip
                 label="STATUS"
-                value="WAITING_FOR_USER_INPUT"
+                value={
+                  <>
+                    <span className="md:hidden">INPUT_REQD</span>
+                    <span className="hidden md:inline">WAITING_FOR_USER_INPUT</span>
+                  </>
+                }
                 status="error"
-                tooltip="PENDING REGISTRATION"
+                tooltip={
+                  <>
+                    <span className="md:hidden">PENDING</span>
+                    <span className="hidden md:inline">PENDING REGISTRATION</span>
+                  </>
+                }
               />
               <HudDataChip
-                label="UPLOAD_SPEED"
-                value="UNRESTRICTED"
+                label={
+                  <>
+                    <span className="md:hidden">UPLD_SPD</span>
+                    <span className="hidden md:inline">UPLOAD_SPEED</span>
+                  </>
+                }
+                value={
+                  <>
+                    <span className="md:hidden">MAX</span>
+                    <span className="hidden md:inline">UNRESTRICTED</span>
+                  </>
+                }
                 status="primary"
                 tooltip="BANDWIDTH: MAX"
               />

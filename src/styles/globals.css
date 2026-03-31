@@ -1,6 +1,16 @@
 @import "tailwindcss";
 
 /* ══════════════════════════════════════
+   FONTS
+   ══════════════════════════════════════ */
+@font-face {
+  font-family: 'Super Ground';
+  src: url('/images/Super-Ground-DEMO-BF64f194777208a.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* ══════════════════════════════════════
    CUSTOM THEME — HackFest Design Tokens
    ══════════════════════════════════════ */
 @theme {

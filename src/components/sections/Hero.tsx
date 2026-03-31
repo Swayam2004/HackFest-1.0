@@ -9,29 +9,29 @@ import HudTooltip from "../ui/HudTooltip";
 gsap.registerPlugin(ScrollTrigger);
 
 const sideNavLinks = [
-	{ label: "Home", href: "#hero", active: true },
-	{ label: "About Us", href: "#about", active: false },
-	{ label: "Register", href: "#register", active: false },
-	{ label: "Prize Pool", href: "#prize-pool", active: false },
-	{ label: "Events", href: "#events", active: false },
-	{ label: "FAQs", href: "#faq", active: false },
+  { label: "Home", href: "#hero", active: true },
+  { label: "About Us", href: "#about", active: false },
+  { label: "Register", href: "#register", active: false },
+  { label: "Prize Pool", href: "#prize-pool", active: false },
+  { label: "Events", href: "#events", active: false },
+  { label: "FAQs", href: "#faq", active: false },
 ];
 
 /* ─── Static Error Box for Countdown Area ─────────────────────────── */
 function ErrorBox() {
   return (
-    <div className="flex flex-col items-end gap-1">
-      <span className="font-lexend font-bold text-sm md:text-[22px] text-[#c00100] tracking-[-1px] leading-tight md:leading-[31px]">
+    <div className="flex flex-col items-end gap-0.5 sm:gap-1">
+      <span className="font-lexend font-bold text-[10px] sm:text-xs md:text-[22px] text-[#c00100] tracking-[-1px] leading-tight md:leading-[31px]">
         T minus
       </span>
       <motion.div
-        className="bg-[#c00100] p-1.5 md:p-[10px] shadow-[4px_4px_0px_0px_#000] md:shadow-[6px_4px_0.4px_0px_#000] w-auto flex justify-end"
+        className="bg-[#c00100] p-1 sm:p-1.5 md:p-[10px] shadow-[2px_2px_0px_0px_#000] sm:shadow-[4px_4px_0px_0px_#000] md:shadow-[6px_4px_0.4px_0px_#000] w-auto flex justify-end"
         initial={{ scale: 0.8, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.5, type: 'spring', stiffness: 200, damping: 15 }}
       >
         <div className="w-auto text-right">
-          <span className="font-lexend font-bold text-[#ffe600] text-xs md:text-[20px] tracking-[-1px] leading-none md:leading-[31px] whitespace-nowrap tabular-nums">
+          <span className="font-lexend font-bold text-[#ffe600] text-[9px] sm:text-xs md:text-[20px] tracking-[-1px] leading-none md:leading-[31px] whitespace-nowrap tabular-nums">
             ERROR_404_TIME
           </span>
         </div>
@@ -120,6 +120,7 @@ export default function Hero() {
   const heroRef = useRef<HTMLElement>(null);
   const characterRef = useRef<HTMLDivElement>(null);
   const textBackRef = useRef<HTMLDivElement>(null);
+  const textOutlineRef = useRef<HTMLDivElement>(null);
   const [glitchCycle, setGlitchCycle] = useState(false);
 
   // Periodic glitch on the HACKFEST text
@@ -131,26 +132,14 @@ export default function Hero() {
     return () => clearInterval(interval);
   }, []);
 
-  // GSAP parallax
+  // GSAP parallax - only for character, text is static
   useEffect(() => {
     if (!heroRef.current) return;
 
     const ctx = gsap.context(() => {
       if (characterRef.current) {
         gsap.to(characterRef.current, {
-          y: -60,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroRef.current,
-            start: 'top top',
-            end: 'bottom top',
-            scrub: true,
-          },
-        });
-      }
-      if (textBackRef.current) {
-        gsap.to(textBackRef.current, {
-          y: 40,
+          y: -120, // Increased character parallax upwards
           ease: 'none',
           scrollTrigger: {
             trigger: heroRef.current,
@@ -176,18 +165,18 @@ export default function Hero() {
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.1, duration: 0.15 }}
-        className="absolute top-6 md:top-8 left-6 md:left-12 z-20"
+        className="absolute top-4 left-4 sm:top-6 sm:left-6 md:top-8 md:left-12 z-20"
       >
         <img
           src="/images/hf-logo.svg"
           alt="HF Logo"
-          className="w-20 h-auto md:w-28 md:h-auto"
+          className="w-12 sm:w-16 md:w-28 h-auto"
           onError={(e) => ((e.target as HTMLImageElement).style.display = 'none')}
         />
       </motion.div>
 
       {/* ===== Countdown Timer — top right ===== */}
-      <div className="absolute top-6 md:top-8 right-6 md:right-12 z-20">
+      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-12 z-20">
         <ErrorBox />
       </div>
 
@@ -224,12 +213,12 @@ export default function Hero() {
         {/* Background HACKFEST text (solid red, behind character) */}
         <div
           ref={textBackRef}
-          className="absolute left-1/2 -translate-x-1/2 top-[calc(50%+40px)] md:top-[calc(50%+60px)] -translate-y-1/2 z-[1] w-[95vw] md:w-[1147px] max-w-none pointer-events-none select-none"
+          className="absolute left-1/2 -translate-x-1/2 top-[calc(50%+5vw)] md:top-[calc(50%+60px)] -translate-y-1/2 z-[1] w-[95vw] md:w-[1147px] aspect-[1157/136] max-w-none pointer-events-none select-none"
         >
           <motion.img
             src="/images/hackfest-text.svg"
             alt=""
-            className="w-full h-auto"
+            className="w-full h-full"
             initial={{ opacity: 0, y: 40 }}
             animate={glitchCycle
               ? { opacity: 1, y: 0, x: [0, -3, 5, -2, 0], skewX: [0, 2, -3, 1, 0] }
@@ -244,13 +233,12 @@ export default function Hero() {
         </div>
 
         {/* Character image — centered, with CSS-based cyberpunk glitch on hover */}
-        <motion.div
-          ref={characterRef}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15, duration: 0.15, ease: [0.25, 0, 0.25, 1] }}
-          className="relative z-[2] mt-8 md:mt-0 flex justify-center w-full"
-        >
+        <div ref={characterRef} className="relative z-[2] flex justify-center w-full">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.15, duration: 0.15, ease: [0.25, 0, 0.25, 1] }}
+          >
           {/* Inject glitch CSS */}
           <style dangerouslySetInnerHTML={{ __html: glitchCSS }} />
 
@@ -260,7 +248,7 @@ export default function Hero() {
             <img
               src="/images/hero-hacker.png"
               alt="HackFest Cyberpunk Hacker"
-              className="block w-[75vw] sm:w-[55vw] md:w-[45vw] lg:w-[40vw] max-w-[693px] h-auto relative z-[1] glitch-img"
+              className="block w-[57.4vw] md:w-[693px] h-auto relative z-[1] glitch-img"
               onError={(e) => {
                 (e.target as HTMLImageElement).style.background = '#333';
                 (e.target as HTMLImageElement).src = '';
@@ -271,7 +259,7 @@ export default function Hero() {
             <img
               src="/images/hero-hacker.png"
               alt=""
-              className="block w-[75vw] sm:w-[55vw] md:w-[45vw] lg:w-[40vw] max-w-[693px] h-auto glitch-clone red z-[2]"
+              className="block w-[57.4vw] md:w-[693px] h-auto glitch-clone red z-[2]"
               aria-hidden="true"
             />
 
@@ -279,30 +267,53 @@ export default function Hero() {
             <img
               src="/images/hero-hacker.png"
               alt=""
-              className="block w-[75vw] sm:w-[55vw] md:w-[45vw] lg:w-[40vw] max-w-[693px] h-auto glitch-clone cyan z-[3]"
+              className="block w-[57.4vw] md:w-[693px] h-auto glitch-clone cyan z-[3]"
               aria-hidden="true"
             />
 
             {/* Horizontal scanline sweep */}
             <div className="glitch-scanline" />
           </div>
-        </motion.div>
+          </motion.div>
+        </div>
+
+        {/* Outline HACKFEST text (stroke only, in front of character to complete sandwich effect) */}
+        <div
+          ref={textOutlineRef}
+          className="absolute left-1/2 -translate-x-1/2 top-[calc(50%+5vw)] md:top-[calc(50%+60px)] -translate-y-1/2 z-[3] w-[95vw] md:w-[1147px] aspect-[1157/136] max-w-none pointer-events-none select-none"
+        >
+          <motion.img
+            src="/images/hackfest-text-outline.svg"
+            alt=""
+            className="w-full h-full drop-shadow-lg"
+            initial={{ opacity: 0, y: 40 }}
+            animate={glitchCycle
+              ? { opacity: 1, y: 0, x: [0, -3, 5, -2, 0], skewX: [0, 2, -3, 1, 0] }
+              : { opacity: 1, y: 0, x: 0, skewX: 0 }
+            }
+            transition={glitchCycle
+              ? { duration: 0.3, ease: 'linear' }
+              : { delay: 0.2, duration: 0.2 }
+            }
+            onError={(e) => ((e.target as HTMLImageElement).style.display = 'none')}
+          />
+        </div>
       </div>
 
       {/* ===== Subtitle — bottom center ===== */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.6, duration: 0.15 }}
-        className="absolute bottom-10 md:bottom-16 left-0 right-0 z-20 px-4 flex flex-wrap justify-center items-center gap-x-2 text-center"
+        transition={{ delay: 0.8, duration: 0.3 }}
+        className="absolute bottom-16 md:bottom-10 left-0 right-0 z-20 px-4 flex flex-wrap justify-center items-center gap-x-2 text-center"
       >
         <span className="font-montserrat italic font-medium text-[#c00100] text-xs sm:text-base md:text-[28px] shrink-0">
           {'> an initiative by '}
         </span>
-        <span className="font-['Super_Ground',sans-serif] font-normal text-[#c00100] text-xs sm:text-base md:text-[28px] not-italic shrink-0">
+        <span className="font-['Super_Ground'] font-normal text-[#c00100] text-xs sm:text-base md:text-[28px] not-italic shrink-0">
           TeCHSoC
         </span>
-        <span className="font-['Super_Ground',sans-serif] font-normal text-[#c00100] text-xs sm:text-base md:text-[28px] not-italic shrink-0">
+        <span className="font-['Super_Ground'] font-normal text-[#c00100] text-xs sm:text-base md:text-[28px] not-italic shrink-0">
           {' , oUTr'}
         </span>
       </motion.div>

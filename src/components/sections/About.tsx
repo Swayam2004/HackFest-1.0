@@ -117,14 +117,14 @@ const stats = [
     suffix: 'H',
     pad: 0,
     label: 'UPTIME_REQUIRED',
-    icon: '/images/icon-clock.png',
+    icon: 'clock',
   },
   {
     target: 10,
     suffix: '',
     pad: 2,
     label: 'PROBLEM_STATEMENT',
-    icon: '/images/icon-nodes.png',
+    icon: 'nodes',
   },
 ];
 

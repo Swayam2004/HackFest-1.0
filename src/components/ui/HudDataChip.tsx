@@ -3,12 +3,12 @@ import React from 'react';
 type StatusColor = 'error' | 'primary' | 'warning' | 'ok';
 
 interface HudDataChipProps {
-  label: string;
-  value?: string;
+  label: string | React.ReactNode;
+  value?: string | React.ReactNode;
   status?: StatusColor;
   className?: string;
   /** Optional tooltip shown on hover (instant black box) */
-  tooltip?: string;
+  tooltip?: string | React.ReactNode;
 }
 
 const STATUS_COLORS: Record<StatusColor, string> = {
