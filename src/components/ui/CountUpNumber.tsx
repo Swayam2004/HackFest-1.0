@@ -10,6 +10,10 @@ interface CountUpNumberProps {
   pad?: number;
   className?: string;
   duration?: number;
+  /** Optional external trigger — if provided, animation fires when this is true
+   *  (useful when the element is inside a clip-path stacking context which can
+   *  cause IntersectionObserver to never fire). */
+  trigger?: boolean;
 }
 
 export default function CountUpNumber({
@@ -18,10 +22,12 @@ export default function CountUpNumber({
   pad = 0,
   className = '',
   duration = 1.8,
+  trigger,
 }: CountUpNumberProps) {
   const elRef = useRef<HTMLSpanElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(containerRef, { once: true, margin: '-80px' });
+  const inViewInternal = useInView(containerRef, { once: true, margin: '-80px' });
+  const inView = trigger ?? inViewInternal;
 
   useEffect(() => {
     if (!inView || !elRef.current) return;

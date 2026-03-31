@@ -3,11 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import GlitchText from '../ui/GlitchText';
 
 const navLinks = [
-  { label: '01_ABOUT',     href: '#about',      section: 'about' },
-  { label: '02_REGISTER',  href: '#register',   section: 'register' },
-  { label: '03_PRIZE POOL',href: '#prize-pool', section: 'prize-pool' },
-  { label: '04_EVENTS',    href: '#events',     section: 'events' },
-  { label: '05_FAQ',       href: '#faq',        section: 'faq' },
+  { label: '01_ABOUT', href: '#about', section: 'about' },
+  { label: '02_REGISTER', href: '#register', section: 'register' },
+  { label: '03_PRIZE POOL', href: '#prize-pool', section: 'prize-pool' },
+  { label: '04_EVENTS', href: '#events', section: 'events' },
+  { label: '05_FAQ', href: '#faq', section: 'faq' },
 ];
 
 /* ─── Blinking dot status indicator ─────────────────────────────────── */
@@ -101,7 +101,7 @@ export default function Navbar() {
         }
       `}</style>
 
-      <nav className="fixed top-0 left-0 right-0 z-[100] bg-hack-yellow border-b-4 border-hack-black flex items-center justify-between px-4 py-3 md:px-6 md:py-4 lg:py-5">
+      <nav className="relative w-full z-[100] bg-hack-yellow border-b-4 border-hack-black flex items-center justify-between px-4 py-3 md:px-6 md:py-4 lg:py-5">
         {/* Logo + status */}
         <div className="flex items-center">
           <GlitchText

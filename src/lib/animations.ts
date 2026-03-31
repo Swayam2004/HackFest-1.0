@@ -56,27 +56,45 @@ export const glitchHover: Variants = {
   },
 };
 
-/** Button glitch + scale on hover */
+/** Button glitch + scale on hover — hard step snap, no ease */
 export const buttonGlitch: Variants = {
   rest: {
     scale: 1,
     x: 0,
     boxShadow: '12px 12px 0px 0px #000000',
-    transition: { duration: 0.04 },
+    transition: { duration: 0 },
   },
   hover: {
+    // Sudden 2px scale-up via step function — 0ms to 50ms window, no ease-in
     scale: 1.02,
-    x: [0, 2, -1, 2, 0],
+    x: [0, 3, -2, 3, 0],
     boxShadow: '10px 10px 0px 0px #000000',
     transition: {
-      scale: { duration: 0.04 },
-      x: { duration: 0.2, times: [0, 0.25, 0.5, 0.75, 1] },
+      scale: { duration: 0.05, ease: [1, 0, 1, 0] }, // step-end equivalent
+      x: { duration: 0.05, times: [0, 0.25, 0.5, 0.75, 1], ease: 'linear' },
+      boxShadow: { duration: 0 },
     },
   },
   tap: {
-    scale: 0.98,
+    scale: 0.97,
     boxShadow: '4px 4px 0px 0px #000000',
-    transition: { duration: 0.04 },
+    transition: { duration: 0 },
+  },
+};
+
+/** Tooltip — instant appear/disappear, 0ms transition */
+export const tooltipInstant: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.95,
+    y: 4,
+    transition: { duration: 0 },
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { duration: 0 },
   },
 };
 

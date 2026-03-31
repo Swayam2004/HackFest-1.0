@@ -24,7 +24,7 @@ function useScramble(target: string, trigger: boolean, delay = 0) {
     if (!trigger) { setVal(''); return; }
     const timeout = setTimeout(() => {
       let frame = 0;
-      const total = 20;
+      const total = 30;
       const id = setInterval(() => {
         frame++;
         const progress = frame / total;
@@ -317,10 +317,10 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       setStatusLines([]);
       let p = 0;
       const bp = setInterval(() => {
-        p = Math.min(p + 0.02, 1);
+        p = Math.min(p + 0.008, 1);
         setBpProgress(p);
         if (p >= 1) clearInterval(bp);
-      }, 60);
+      }, 25);
       const t1 = setTimeout(() => addLine(STATUS_STEPS[0]), 400);
       const t2 = setTimeout(() => addLine(STATUS_STEPS[1]), 800);
       const t3 = setTimeout(() => addLine(STATUS_STEPS[2]), 1300);
@@ -340,7 +340,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
   return (
     <motion.div
       className="fixed inset-0 z-[200] flex flex-col bg-black"
-      exit={{ opacity: 0, transition: { duration: 0.5 } }}
+      exit={{ opacity: 0, scale: 1.05, filter: 'blur(8px)', transition: { duration: 0.8, ease: [0.25, 0, 0.25, 1] } }}
     >
       <ParticleField />
 
@@ -369,10 +369,13 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       <div className="flex-1 relative z-10 flex flex-col items-center justify-center px-4">
 
         {/* STAGE 1: Initialization */}
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {stage === 1 && (
             <motion.div key="s1" className="flex flex-col items-center gap-4"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0, transition: { duration: 0.15 } }}>
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.85, filter: 'blur(12px)', transition: { duration: 0.5, ease: [0.4, 0, 1, 1] } }}
+              transition={{ duration: 0.4, ease: [0, 0, 0.2, 1] }}>
               <div className="font-mono text-[10px] text-[#00ff41]/50 tracking-[0.4em] uppercase mb-2">
                 ASSEMBLING :: DATA_CONSTRUCT :: {Math.round(bpProgress * 100)}%
               </div>
@@ -382,10 +385,12 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
         </AnimatePresence>
 
         {/* STAGE 2: Logo reveal */}
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {stage === 2 && (
             <motion.div key="s2" className="flex flex-col items-center gap-6 text-center"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.25 }}>
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0, 0, 0.2, 1], staggerChildren: 0.1 }}>
 
               {/* Laser lines top */}
               <div className="w-full max-w-md">
@@ -399,8 +404,9 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
 
               {/* HACK_FEST */}
               <div
-                className="font-display font-black text-white tracking-tighter leading-none"
+                className="font-black text-white tracking-tighter leading-none"
                 style={{
+                  fontFamily: '"KleemaxPro", "Kleemax Pro", sans-serif',
                   fontSize: 'clamp(64px, 14vw, 130px)',
                   textShadow: '0 0 30px rgba(192,1,0,0.9), 0 0 60px rgba(192,1,0,0.5), 8px 8px 0 #c00100',
                 }}
@@ -440,7 +446,7 @@ export default function Preloader({ onDone }: { onDone: () => void }) {
       <div className="relative z-30 px-4 sm:px-8 py-3 border-t border-red-900/30">
         <StatusFooter lines={statusLines} />
         <div className="mt-2 h-px bg-white/10">
-          <div className="h-full bg-hack-red" style={{ width: `${(stage / 2) * 100}%`, transition: 'width 0.3s linear' }} />
+          <div className="h-full bg-hack-red" style={{ width: `${(stage / 2) * 100}%`, transition: 'width 0.6s cubic-bezier(0.25, 0, 0.25, 1)' }} />
         </div>
       </div>
 

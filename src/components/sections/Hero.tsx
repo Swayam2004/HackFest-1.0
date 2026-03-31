@@ -1,18 +1,20 @@
-import { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { brutalistEntrance } from '../../lib/animations';
+import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { brutalistEntrance } from "../../lib/animations";
+import HudDataChip from "../ui/HudDataChip";
+import HudTooltip from "../ui/HudTooltip";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const sideNavLinks = [
-  { label: 'Home', href: '#hero', active: true },
-  { label: 'About Us', href: '#about', active: false },
-  { label: 'Register', href: '#register', active: false },
-  { label: 'Prize Pool', href: '#prize-pool', active: false },
-  { label: 'Events', href: '#events', active: false },
-  { label: 'FAQs', href: '#faq', active: false },
+	{ label: "Home", href: "#hero", active: true },
+	{ label: "About Us", href: "#about", active: false },
+	{ label: "Register", href: "#register", active: false },
+	{ label: "Prize Pool", href: "#prize-pool", active: false },
+	{ label: "Events", href: "#events", active: false },
+	{ label: "FAQs", href: "#faq", active: false },
 ];
 
 /* ─── Static Error Box for Countdown Area ─────────────────────────── */
