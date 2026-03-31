@@ -45,7 +45,7 @@ export default function Footer() {
 								href={social.href}
 								className="hidden md:[writing-mode:vertical-rl] md:[text-orientation:mixed] md:rotate-180
                   font-body font-black text-[10px] md:text-sm tracking-widest text-hack-yellow uppercase whitespace-nowrap
-                  hover:text-hack-red transition-colors duration-50"
+                  hover:text-hack-red transition-colors duration-[50ms]"
 							>
 								{social.label}
 							</a>
