@@ -20,11 +20,11 @@ export default function Footer() {
 				<div className="lg:col-span-6 relative self-end">
 					{/* Ghost CYBER text */}
 					<div
-						className="absolute top-0 -left-4 font-body font-black text-white/5 leading-[0.85] tracking-tight select-none pointer-events-none
+						className="absolute top-0 -left-4 md:-left-2 lg:left-0 font-body font-black text-white/5 leading-[0.85] tracking-tight select-none pointer-events-none
             text-[60px] sm:text-[120px] md:text-[16vw] xl:text-[240px]"
-          >
-            HACKFEST
-          </div>
+					>
+						HACKFEST
+					</div>
 
 					<div className="relative pt-16 md:pt-56">
 						<motion.div initial="hidden" animate={inView ? "visible" : "hidden"} variants={{ visible: { transition: { staggerChildren: 0.06 } } }}>
@@ -52,8 +52,8 @@ export default function Footer() {
 						))}
 					</div>
 
-					{/* Info box */}
-					<div className="bg-hack-red border-4 border-hack-red p-4 md:p-7 shrink-0 w-full md:w-auto">
+					{/* Info box touching right screen on mobile, padded on desktop */}
+					<div className="bg-hack-red border-4 border-hack-red p-4 md:p-7 shrink-0 w-[calc(100%+1rem)] md:w-auto -mr-4 md:mr-0">
 						<div className="font-mono text-[9px] md:text-xs text-white leading-relaxed uppercase">
 							<div>SECURE_ENCRYPTION_ENABLED</div>
 							<div>256_BIT_AES_CONNECTED</div>

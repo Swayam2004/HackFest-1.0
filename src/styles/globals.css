@@ -69,10 +69,20 @@
    BASE LAYER — Global resets
    ═══════════════════════════════════ */
 @layer base {
+  @media (pointer: fine) {
+    *, *::before, *::after {
+      cursor: none !important;
+    }
+  }
+
   *,
   *::before,
   *::after {
     border-radius: 0 !important;
+  }
+
+  html, body {
+    overflow-x: hidden;
   }
 
   html {
@@ -85,7 +95,6 @@
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    overflow-x: hidden;
   }
 
   img {

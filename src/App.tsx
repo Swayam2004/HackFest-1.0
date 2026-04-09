@@ -15,6 +15,7 @@ import Sponsors from './components/sections/Sponsors';
 import FAQs from './components/sections/FAQs';
 import ScanlineOverlay from './components/ui/ScanlineOverlay';
 import Preloader from './components/layout/Preloader';
+import CustomCursor from './components/ui/CustomCursor';
 import { crtFlicker } from './lib/animations';
 
 export default function App() {
@@ -49,6 +50,7 @@ export default function App() {
           animate="animate"
         >
           <ScanlineOverlay />
+          <CustomCursor />
 
           {/* Sticky Navbar — slides in after scrolling past the hero */}
           <AnimatePresence>

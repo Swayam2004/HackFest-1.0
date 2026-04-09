@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import MagneticDots from "../ui/MagneticDots";
 
 const EVENTS_DATA = [
 	{
@@ -165,7 +166,10 @@ export default function PeripheralNodes() {
 	const visibleEvents = EVENTS_DATA.slice(startIndex, startIndex + 3);
 
 	return (
-		<section ref={ref} id="peripheral-nodes" className="bg-terminal-dots border-b-4 md:border-b-8 border-hack-red py-16 md:py-26 relative overflow-hidden">
+		<section ref={ref} id="peripheral-nodes" className="border-b-4 md:border-b-8 border-hack-red py-16 md:py-26 relative overflow-hidden" style={{ backgroundColor: '#030000' }}>
+			{/* Interactive magnetic dot background */}
+			<MagneticDots />
+
 			<style>{`
         /* Image Handling - Brutalist Filter */
         .peripheral-card-visual {
@@ -212,12 +216,7 @@ export default function PeripheralNodes() {
           100% { opacity: 1; filter: invert(0); mix-blend-mode: normal; }
         }
 
-        /* Dotted Terminal Background */
-        .bg-terminal-dots {
-          background-color: #030000;
-          background-image: radial-gradient(rgba(192, 1, 0, 0.25) 1.5px, transparent 1.5px);
-          background-size: 24px 24px;
-        }
+        /* Dotted Terminal Background now handled by MagneticDots canvas */
 
         /* Diagonal Corner Cut */
         .clip-diagonal {
@@ -251,7 +250,7 @@ export default function PeripheralNodes() {
         }
       `}</style>
 
-			<div className="max-w-7xl w-full mx-auto px-4 md:px-6">
+			<div className="max-w-7xl w-full mx-auto px-4 md:px-6 relative z-[1]">
 				{/* Header Cluster */}
 				<div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-16 border-b-4 border-hack-red pb-4">
 					<motion.h2
