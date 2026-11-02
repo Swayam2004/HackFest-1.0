@@ -63,9 +63,6 @@ export default function EventDetailsModal({ event, isOpen, onClose }: EventDetai
             <div className="p-4 sm:p-6 bg-gradient-to-b from-[#181818] to-[#0c0c0c] border-b-2 border-hack-yellow/40 shrink-0">
               <div className="flex items-center justify-between gap-3 flex-wrap">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="font-mono text-[10px] md:text-xs font-bold uppercase tracking-wider bg-hack-yellow text-black px-2.5 py-0.5">
-                    {event.category}
-                  </span>
                   {event.fee && (
                     <span className="font-mono text-[10px] md:text-xs font-bold text-hack-yellow border border-hack-yellow/40 bg-hack-yellow/10 px-2 py-0.5 tracking-wider">
                       {event.fee}

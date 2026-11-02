@@ -72,14 +72,13 @@ export default function EventCard({ event, index }: { event: FestivalEvent; inde
         <EventVisual visual={event.visual} code={String(index + 1).padStart(2, '0')} />
         <div className="festival-card-content flex-1 flex flex-col justify-between">
           <div>
-            <div className="flex items-center justify-between gap-2 flex-wrap mb-2">
-              <p className="festival-eyebrow">{event.category}</p>
-              {event.fee && (
+            {event.fee && (
+              <div className="flex items-center justify-end gap-2 flex-wrap mb-2">
                 <span className="font-mono text-xs font-bold text-hack-yellow border border-hack-yellow/40 bg-hack-yellow/10 px-2 py-0.5 tracking-wider">
                   {event.fee}
                 </span>
-              )}
-            </div>
+              </div>
+            )}
             <h2 className="font-display font-bold text-xl sm:text-2xl text-white leading-snug uppercase line-clamp-2 min-h-[3.5rem] flex items-center mb-2">
               {event.name}
             </h2>

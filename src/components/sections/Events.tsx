@@ -23,14 +23,13 @@ export default function Events() {
             <EventVisual visual={event.visual} code={`0${i + 1}`} />
             <div className="festival-card-content flex-1 flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between gap-2 flex-wrap mb-2">
-                  <p className="festival-eyebrow">{event.category}</p>
-                  {event.fee && (
+                {event.fee && (
+                  <div className="flex items-center justify-end gap-2 flex-wrap mb-2">
                     <span className="font-mono text-xs font-bold text-hack-yellow border border-hack-yellow/40 bg-hack-yellow/10 px-2 py-0.5 tracking-wider">
                       {event.fee}
                     </span>
-                  )}
-                </div>
+                  </div>
+                )}
                 <h3 className="font-display font-bold text-xl sm:text-2xl text-white uppercase group-hover:text-hack-yellow line-clamp-2 min-h-[3.5rem] flex items-center mb-2">{event.name}</h3>
                 <p className="text-sm text-white/70 leading-relaxed line-clamp-2 min-h-[2.5rem] mb-3">{event.description}</p>
               </div>
